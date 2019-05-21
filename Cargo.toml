@@ -5,9 +5,11 @@ authors = ["debris <marek.kotewicz@gmail.com>"]
 license = "MIT"
 description = "Elastic vector backed by fixed size array"
 repository = "https://github.com/debris/elastic-array"
+exclude = ["/sgx/*"]
 
 [dependencies]
-heapsize = { version = "0.4", optional = true }
+heapsize = { git = "https://github.com/mesalock-linux/heapsize-sgx", version = "0.4", optional = true }
+sgx_tstd = { rev = "v1.0.9", git = "https://github.com/baidu/rust-sgx-sdk.git", optional = true }
 
 [dev-dependencies]
 rand = "0.4"
@@ -16,7 +18,8 @@ rand = "0.4"
 travis-ci = { repository = "debris/elastic-array" }
 
 [features]
-default = ["std"]
+default = ["std","mesalock_sgx"]
 std = [
   "heapsize"
 ]
+mesalock_sgx = ["sgx_tstd", "std"]

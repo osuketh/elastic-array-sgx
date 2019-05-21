@@ -1,6 +1,21 @@
 
-#![cfg_attr(not(feature = "std"), no_std)]
-#![cfg_attr(not(feature = "std"), feature(alloc))]
+#![cfg_attr(any(not(feature = "std"),
+                all(feature = "mesalock_sgx", not(target_env = "sgx"))), no_std)]
+
+// warning: the feature `alloc` has been stable since 1.36.0 and no longer
+// requires an attribute to enable
+//#![cfg_attr(any(not(feature = "std"),
+//                all(feature = "mesalock_sgx", target_env = "sgx")),
+//            feature(alloc))]
+
+#![cfg_attr(all(target_env = "sgx", target_vendor = "mesalock"), feature(rustc_private))]
+
+#[cfg(all(feature = "mesalock_sgx", not(target_env = "sgx")))]
+#[macro_use]
+extern crate sgx_tstd as std;
+
+#[cfg(feature = "mesalock_sgx")]
+use std::prelude::v1::*;
 
 #[cfg(feature = "std")]
 extern crate heapsize;
