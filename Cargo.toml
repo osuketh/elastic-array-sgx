@@ -9,7 +9,7 @@ exclude = ["/sgx/*"]
 
 [dependencies]
 heapsize = { git = "https://github.com/mesalock-linux/heapsize-sgx", version = "0.4", optional = true }
-sgx_tstd = { rev = "v1.0.9", git = "https://github.com/baidu/rust-sgx-sdk.git", optional = true }
+sgx_tstd = { rev = "v1.0.9", git = "https://github.com/apache/mesatee-sgx", optional = true }
 
 [dev-dependencies]
 rand = "0.4"
